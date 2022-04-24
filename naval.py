@@ -41,13 +41,18 @@ class Board:
         if self.verifyInsertion(position, orientation, shipSize):
             if orientation == "horizontal":
                 for block in range(shipSize):
-                    self.cells[toNumbers[position[0]]][int(position[1]) + block].isShip = True
-                    self.ships[len(self.ships) - 1].append([position]) 
+                    self.cells[int(position[1]) + block][toNumbers[position[0]] - 1].isShip = True
+                    #print(self.cells[toNumbers[position[0]] + block -1][int(position[1])].position)
+                    #TODO FIX 
+                    self.ships[len(self.ships) - 1].append(self.cells[int(position[1]) + block][toNumbers[position[0]] - 1].position)
+            else: 
+                pass
+            #TODO IMPLEMENT Vertical
 
     def verifyInsertion(self, position, orientation, shipSize):
         if orientation == "horizontal" and len(self.cells) < int(position[1]) + shipSize:
             for b in range(shipSize):
-                if self.cells[position[0]][position[1] + b].isShip:
+                if self.cells[position[0]+b][position[1]].isShip:
                     return False
             return True
         else:
@@ -87,4 +92,8 @@ class Board:
 game = Game('EASY')
 print(game.board1)
 #Insert a 4 sized boat in position a0, in horizontal orientation (left to right)
-game.board1.insertShip('A0', 'horizontal', 4)
+game.board1.insertShip('A2', 'horizontal', 4)
+#for row in game.board1.cells:
+ #   for block in row:
+        #print(block.position, block.isShip)
+#print(game.board1.ships)
